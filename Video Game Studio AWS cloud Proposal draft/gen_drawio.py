@@ -1,0 +1,254 @@
+﻿xml = r"""<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-05-11" agent="draw.io" version="21.0.0">
+  <diagram name="AWS Game Studio Architecture" id="game-studio-arch">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1"
+                  connect="1" arrows="1" fold="1" page="1" pageScale="1"
+                  pageWidth="1654" pageHeight="1169" math="0" shadow="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- VPC BOUNDARY                                                -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="vpc" value="AWS VPC — us-east-1" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_vpc;strokeColor=#8C4FFF;fillColor=#F5F0FF;fontStyle=1;fontSize=13;fontColor=#8C4FFF;verticalAlign=top;align=left;spacingLeft=30;swimlaneHead=0;swimlaneBody=0;fillColor=#f5f0ff;collapsible=0;horizontal=0;fillColor=#F5F0FF;strokeColor=#8C4FFF;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="1200" height="900" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PUBLIC SUBNET                                               -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="pub_subnet" value="Public Subnet" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_public_subnet;strokeColor=#007CBB;fillColor=#E6F3FB;fontStyle=1;fontSize=11;fontColor=#007CBB;verticalAlign=top;align=left;spacingLeft=30;collapsible=0;horizontal=0;" vertex="1" parent="vpc">
+          <mxGeometry x="30" y="60" width="320" height="760" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRIVATE SUBNET                                              -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="priv_subnet" value="Private Subnet" style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],[1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];shape=mxgraph.aws4.group;grIcon=mxgraph.aws4.group_private_subnet;strokeColor=#067F68;fillColor=#E6F6F3;fontStyle=1;fontSize=11;fontColor=#067F68;verticalAlign=top;align=left;spacingLeft=30;collapsible=0;horizontal=0;" vertex="1" parent="vpc">
+          <mxGeometry x="390" y="60" width="780" height="760" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PLAYERS (outside VPC)                                       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="players" value="Players&#xa;(Global)" style="shape=mxgraph.aws4.user;fillColor=#232F3E;strokeColor=none;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="30" y="440" width="60" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Internet Gateway -->
+        <mxCell id="igw" value="Internet&#xa;Gateway" style="shape=mxgraph.aws4.internet_gateway;fillColor=#8C4FFF;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="130" y="450" width="60" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PUBLIC SUBNET SERVICES                                      -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+
+        <!-- CloudFront -->
+        <mxCell id="cf" value="Amazon&#xa;CloudFront" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;fillColor=#8C4FFF;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="vpc">
+          <mxGeometry x="100" y="110" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="cf_lbl" value="CDN — patches, DLC,&#xa;trailers, screenshots" style="text;html=1;fontSize=9;fontColor=#007CBB;align=center;" vertex="1" parent="vpc">
+          <mxGeometry x="65" y="175" width="130" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ELB -->
+        <mxCell id="elb" value="Elastic Load&#xa;Balancer" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_load_balancing;fillColor=#8C4FFF;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="vpc">
+          <mxGeometry x="100" y="280" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="elb_lbl" value="Distributes player&#xa;traffic across EC2" style="text;html=1;fontSize=9;fontColor=#007CBB;align=center;" vertex="1" parent="vpc">
+          <mxGeometry x="65" y="345" width="130" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- API Gateway -->
+        <mxCell id="apigw" value="Amazon API&#xa;Gateway" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;fillColor=#E7157B;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="vpc">
+          <mxGeometry x="100" y="460" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="apigw_lbl" value="REST/WebSocket&#xa;endpoints for clients" style="text;html=1;fontSize=9;fontColor=#007CBB;align=center;" vertex="1" parent="vpc">
+          <mxGeometry x="65" y="525" width="130" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Auto Scaling -->
+        <mxCell id="asg" value="Auto&#xa;Scaling" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.auto_scaling;fillColor=#E7157B;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="vpc">
+          <mxGeometry x="100" y="640" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="asg_lbl" value="Adds/removes EC2&#xa;based on player demand" style="text;html=1;fontSize=9;fontColor=#007CBB;align=center;" vertex="1" parent="vpc">
+          <mxGeometry x="60" y="705" width="140" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRIVATE SUBNET — EC2 CLUSTER BOX                           -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="ec2_group" value="EC2 Backend Servers" style="swimlane;startSize=25;fillColor=#FFF8E6;strokeColor=#D6A800;fontStyle=1;fontSize=11;fontColor=#D6A800;" vertex="1" parent="vpc">
+          <mxGeometry x="420" y="90" width="340" height="200" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="ec2a" value="EC2 Instance&#xa;m6i.8xlarge&#xa;(Matchmaking)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;fillColor=#ED7100;strokeColor=none;fontColor=#232F3E;fontSize=9;" vertex="1" parent="vpc">
+          <mxGeometry x="440" y="130" width="56" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="ec2b" value="EC2 Instance&#xa;m6i.8xlarge&#xa;(Login / Auth)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;fillColor=#ED7100;strokeColor=none;fontColor=#232F3E;fontSize=9;" vertex="1" parent="vpc">
+          <mxGeometry x="560" y="130" width="56" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="ec2c" value="EC2 Instance&#xa;m6i.8xlarge&#xa;(Game API)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;fillColor=#ED7100;strokeColor=none;fontColor=#232F3E;fontSize=9;" vertex="1" parent="vpc">
+          <mxGeometry x="680" y="130" width="56" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="ec2_note" value="10 x m6i.8xlarge  |  32 vCPU / 128 GB RAM  |  Linux" style="text;html=1;fontSize=9;fontColor=#D6A800;align=center;fontStyle=2;" vertex="1" parent="vpc">
+          <mxGeometry x="430" y="200" width="320" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRIVATE SUBNET — RDS BOX                                    -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="rds_group" value="Amazon RDS MySQL — Multi-AZ" style="swimlane;startSize=25;fillColor=#E6F3FB;strokeColor=#007CBB;fontStyle=1;fontSize=11;fontColor=#007CBB;" vertex="1" parent="vpc">
+          <mxGeometry x="420" y="330" width="340" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rds_primary" value="Primary DB&#xa;db.r6g.2xlarge&#xa;MySQL 8.0" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;fillColor=#2E73B8;strokeColor=none;fontColor=#232F3E;fontSize=9;" vertex="1" parent="vpc">
+          <mxGeometry x="460" y="370" width="56" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="rds_standby" value="Standby DB&#xa;(Multi-AZ&#xa;Failover)" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.rds;fillColor=#1A5276;strokeColor=none;fontColor=#232F3E;fontSize=9;" vertex="1" parent="vpc">
+          <mxGeometry x="620" y="370" width="56" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="rds_sync" value="Sync Replication" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#007CBB;fontSize=9;" edge="1" source="rds_primary" target="rds_standby" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rds_note" value="5 instances  |  500 GB gp3 each  |  Player profiles, inventory, leaderboards, purchases" style="text;html=1;fontSize=9;fontColor=#007CBB;align=center;fontStyle=2;" vertex="1" parent="vpc">
+          <mxGeometry x="420" y="455" width="340" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRIVATE SUBNET — LAMBDA                                     -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="lambda" value="AWS Lambda&#xa;Serverless Functions" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;fillColor=#E7157B;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="vpc">
+          <mxGeometry x="840" y="350" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="lambda_lbl" value="Match results · Rewards&#xa;Log cleanup · Notifications" style="text;html=1;fontSize=9;fontColor=#067F68;align=center;" vertex="1" parent="vpc">
+          <mxGeometry x="810" y="415" width="120" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRIVATE SUBNET — CLOUDWATCH                                 -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="cw" value="Amazon&#xa;CloudWatch" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch;fillColor=#E7157B;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="vpc">
+          <mxGeometry x="840" y="530" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="cw_lbl" value="Server health · Traffic&#xa;Errors · Latency · Alarms" style="text;html=1;fontSize=9;fontColor=#067F68;align=center;" vertex="1" parent="vpc">
+          <mxGeometry x="810" y="595" width="120" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PRIVATE SUBNET — IAM                                        -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="iam" value="AWS IAM&#xa;Access Control" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.role;fillColor=#DD344C;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="vpc">
+          <mxGeometry x="840" y="160" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="iam_lbl" value="Least-privilege for devs,&#xa;admins, CI/CD pipelines" style="text;html=1;fontSize=9;fontColor=#067F68;align=center;" vertex="1" parent="vpc">
+          <mxGeometry x="810" y="225" width="120" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- OUTSIDE VPC — S3 (Regional Service)                         -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="regional_box" value="Regional Services" style="swimlane;startSize=25;fillColor=#F9F9F9;strokeColor=#AAAAAA;fontStyle=1;fontSize=12;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="1460" y="200" width="170" height="400" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="s3" value="Amazon S3&#xa;Standard" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;fillColor=#3F8624;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1495" y="250" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3_lbl" value="2 TB  |  Patches, DLC&#xa;Logs, Backups" style="text;html=1;fontSize=9;fontColor=#3F8624;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1475" y="315" width="110" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="cf2" value="Amazon&#xa;CloudFront" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;fillColor=#8C4FFF;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1495" y="380" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="cf2_lbl" value="Global CDN&#xa;Edge delivery" style="text;html=1;fontSize=9;fontColor=#8C4FFF;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1475" y="445" width="110" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="kinesis" value="Amazon&#xa;Kinesis" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.kinesis;fillColor=#E7157B;strokeColor=none;fontColor=#232F3E;fontStyle=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1495" y="510" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="kinesis_lbl" value="Real-time player&#xa;event streaming" style="text;html=1;fontSize=9;fontColor=#E7157B;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1475" y="575" width="110" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- ARROWS                                                       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+
+        <!-- Players -> IGW -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#8C4FFF;strokeWidth=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="players" target="igw" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- IGW -> CloudFront (in VPC) -->
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#8C4FFF;strokeWidth=2;" edge="1" source="igw" target="cf" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- CloudFront -> ELB -->
+        <mxCell id="e3" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#007CBB;strokeWidth=2;fontSize=9;fontColor=#007CBB;" edge="1" source="cf" target="elb" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ELB -> EC2 group -->
+        <mxCell id="e4" value="Route traffic" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#ED7100;strokeWidth=2;fontSize=9;fontColor=#ED7100;" edge="1" source="elb" target="ec2_group" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- API Gateway -> EC2 group -->
+        <mxCell id="e5" value="REST / WS" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#E7157B;strokeWidth=2;fontSize=9;fontColor=#E7157B;" edge="1" source="apigw" target="ec2_group" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Auto Scaling -> EC2 group -->
+        <mxCell id="e6" value="Scale in/out" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#D6A800;strokeWidth=2;dashed=1;fontSize=9;fontColor=#D6A800;" edge="1" source="asg" target="ec2_group" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- EC2 -> RDS -->
+        <mxCell id="e7" value="Read/Write&#xa;player data" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#2E73B8;strokeWidth=2;fontSize=9;fontColor=#2E73B8;" edge="1" source="ec2_group" target="rds_group" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- EC2 -> Lambda -->
+        <mxCell id="e8" value="Trigger events" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#E7157B;strokeWidth=2;fontSize=9;fontColor=#E7157B;" edge="1" source="ec2_group" target="lambda" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- EC2 -> CloudWatch -->
+        <mxCell id="e9" value="Metrics &amp; logs" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#E7157B;strokeWidth=2;dashed=1;fontSize=9;fontColor=#E7157B;" edge="1" source="ec2_group" target="cw" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- EC2 -> IAM -->
+        <mxCell id="e10" value="Auth requests" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#DD344C;strokeWidth=2;dashed=1;fontSize=9;fontColor=#DD344C;" edge="1" source="ec2_group" target="iam" parent="vpc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- EC2 -> S3 (cross to regional) -->
+        <mxCell id="e11" value="Store/fetch assets" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#3F8624;strokeWidth=2;fontSize=9;fontColor=#3F8624;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="ec2_group" target="s3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- CloudFront -> S3 (origin) -->
+        <mxCell id="e12" value="Origin (assets)" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#8C4FFF;strokeWidth=2;dashed=1;fontSize=9;fontColor=#8C4FFF;" edge="1" source="cf2" target="s3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Lambda -> Kinesis -->
+        <mxCell id="e13" value="Player events" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#E7157B;strokeWidth=2;fontSize=9;fontColor=#E7157B;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" source="lambda" target="kinesis" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>"""
+
+with open(r"g:\KIro project\project school\AWS_Architecture_GameStudio.drawio", "w", encoding="utf-8") as f:
+    f.write(xml)
+print("Saved OK — chars:", len(xml))
